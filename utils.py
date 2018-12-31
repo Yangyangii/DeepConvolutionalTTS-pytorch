@@ -99,6 +99,7 @@ def att2img(A):
         A[0, :, i] = (att-local_min)/local_max
     return A
 
+
 def plot_att(A, text, global_step, path='.', name=None):
     '''
     Args:
@@ -108,17 +109,18 @@ def plot_att(A, text, global_step, path='.', name=None):
     '''
     fig, ax = plt.subplots(figsize=(25, 25))
     im = ax.imshow(A)
-    fig.colorbar(im)
-    plt.title('{} Steps'.format(global_step))
-    plt.ylabel('Text')
-    plt.xlabel('Time')
+    fig.colorbar(im, fraction=0.035, pad=0.02)
+    fig.suptitle('{} Steps'.format(global_step), fontsize=30)
+    plt.ylabel('Text', fontsize=22)
+    plt.xlabel('Time', fontsize=22)
     plt.yticks(np.arange(len(text)), text)
     if name is not None:
         plt.savefig(os.path.join(path, name), format='png')
     else:
-        plt.savefig(os.path.join(path, 'A-{}.png'.format(global_step)), format='png')
+        plt.savefig(os.path.join(
+            path, 'A-{}.png'.format(global_step)), format='png')
     plt.close(fig)
-
+    
 def prepro_guided_attention(N, T, g=0.2):
     W = np.zeros([args.max_Tx, args.max_Ty], dtype=np.float32)
     for tx in range(args.max_Tx):
