@@ -64,7 +64,7 @@ def spectrogram2wav(mag):
     mag = np.power(10.0, mag * 0.05)
 
     # wav reconstruction
-    wav = griffin_lim(mag)
+    wav = griffin_lim(mag**args.power)
 
     # de-preemphasis
     wav = signal.lfilter([1], [1, -args.preemph], wav)
@@ -120,7 +120,7 @@ def plot_att(A, text, global_step, path='.', name=None):
         plt.savefig(os.path.join(
             path, 'A-{}.png'.format(global_step)), format='png')
     plt.close(fig)
-    
+
 def prepro_guided_attention(N, T, g=0.2):
     W = np.zeros([args.max_Tx, args.max_Ty], dtype=np.float32)
     for tx in range(args.max_Tx):
