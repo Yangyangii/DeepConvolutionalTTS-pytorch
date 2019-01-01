@@ -36,9 +36,12 @@
 
 ![](assets/attention.gif)
 
-## To do
-- Using previous attention for inference.
-- Alleviate the overfitting.
+## Notes
+- To do: previous attention for inference.
+- To do: Alleviate the overfitting.
+- In the paper, they did not refer normalization. So I used weight normalization like DeepVoice3.
+- Some hyperparameters are different.
+- If you want to improve the performance, you should use all of the data. For some various experiments, I seperated the training set and the validation set.
 
 ## Other Codes
 - [Another pytorch implementation](https://github.com/chaiyujin/dctts-pytorch)
