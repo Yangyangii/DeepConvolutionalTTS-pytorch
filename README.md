@@ -16,7 +16,7 @@
     python prepro.py 1 1
     ```
 
-2. DCTTS has two models. Firstly, you should train the model Text2Mel. I think that 20k step is enough (for only an hour). Overfitting is easy with a small number of utterences.
+2. DCTTS has two models. Firstly, you should train the model Text2Mel. I think that 20k step is enough (for only an hour). But you should train the model more and more with decaying guided attention loss.
     ```
     python train.py 1
     ```
