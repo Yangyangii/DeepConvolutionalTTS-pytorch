@@ -206,10 +206,10 @@ def read_text(path):
         fpaths, texts, norms
     '''
     char2idx, _ = load_vocab()
-    lines = codecs.open(path, 'r', 'utf-8').readlines()
+    lines = codecs.open(path, 'r', 'utf-8').readlines()[1:]
     texts = []
     for line in lines:
-        text = text_normalize(line).strip() + u'E'  # ␃: EOS
+        text = text_normalize(line.split(' ', 1)[-1]).strip() + u'E'  # ␃: EOS
         text = [char2idx[char] for char in text]
         texts.append(text)
     return texts

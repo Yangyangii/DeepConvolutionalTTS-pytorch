@@ -18,8 +18,6 @@ from model import Text2Mel, SSRN
 from data import SpeechDataset, collate_fn, t2m_collate_fn, t2m_ga_collate_fn, load_vocab
 from utils import att2img, spectrogram2wav, plot_att
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 def train(model, data_loader, valid_loader, optimizer, scheduler, batch_size=32, ckpt_dir=None, writer=None, mode='1'):
     epochs = 0
     global_step = args.global_step
@@ -198,15 +196,14 @@ def main(network=1):
 
 if __name__ == '__main__':
     network = int(sys.argv[1])
-    if network is None:
-        print('Usage: python train.py {1,2}')
+    gpu_id = int(sys.argv[2])
+    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(gpu_id)
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Set random seem for reproducibility
     seed = 999
-    #manualSeed = random.randint(1, 10000) # use if you want new results
-    print("Random Seed: ", seed)
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    if DEVICE == 'cuda':
-        torch.cuda.manual_seed(seed)
     main(network=network)
+    

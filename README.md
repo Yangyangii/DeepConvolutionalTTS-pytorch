@@ -18,17 +18,17 @@
 
 2. DCTTS has two models. Firstly, you should train the model Text2Mel. I think that 20k step is enough (for only an hour). But you should train the model more and more with decaying guided attention loss.
     ```
-    python train.py 1
+    python train.py 1 <gpu_id>
     ```
 
 3. Secondly, train the SSRN. The outputs of SSRN are many high resolution data. So training SSRN is slower than training Text2Mel
     ```
-    python train.py 2
+    python train.py 2 <gpu_id>
     ```
 
 4. After training, you can synthesize some speech from text.
     ```
-    python synthesize.py
+    python synthesize.py <gpu_id>
     ```
 
 ## Attention

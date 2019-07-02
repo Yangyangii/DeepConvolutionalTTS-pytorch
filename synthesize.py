@@ -16,7 +16,6 @@ from data import TextDataset, synth_collate_fn, load_vocab
 import utils
 from scipy.io.wavfile import write
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def synthesize(t2m, ssrn, data_loader, batch_size=100):
     '''
@@ -85,4 +84,8 @@ def main():
     synthesize(t2m, ssrn, test_loader, args.test_batch)
 
 if __name__ == '__main__':
+    gpu_id = int(sys.argv[1])
+    os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+    os.environ["CUDA_VISIBLE_DEVICES"] = "{}".format(gpu_id)
+    DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     main()
